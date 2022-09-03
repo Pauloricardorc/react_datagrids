@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState, useContext } from "react";
 import { Column } from "primereact/column";
-import { api } from "../../../core/service/axios";
 import { PersonalizedCard, PersonalizedGrid } from "./styles";
 import { priceFormatter } from "../../../core/utils/formatter";
 
 //filtro
-import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { GridContext } from "../contexts/gridContext";
+import { Header } from "./components/header";
 
 export function GridPrime() {
+  const { products, rowClass } = useContext(GridContext);
   const [first2, setFirst2] = useState(0);
   const [rows2, setRows2] = useState(21);
   const [, setCurrentPage] = useState<any>(1);
-
-  const [products, setProducts] = useState<[]>([]);
-
-  async function getAllProducts() {
-    const result = await api.get("products");
-
-    setProducts(result.data);
-  }
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
 
   //Formação de campo de preços
   const formatterPrice = (rowData: { price: number | bigint }) => {
@@ -54,18 +43,13 @@ export function GridPrime() {
     },
   };
 
-  const rowClass = (products: { category: string }) => {
-    return {
-      "row-accessories": products.category === "jewelery",
-    };
-  };
-
   return (
     <PersonalizedCard>
       <div className="card">
         <PersonalizedGrid
           size="small"
           value={products}
+          header={Header}
           filterDisplay="menu"
           globalFilterFields={["title", "category", "price"]}
           rowClassName={rowClass}

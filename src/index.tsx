@@ -10,6 +10,7 @@ import "primeicons/primeicons.css"; //icons
 import "/node_modules/primeflex/primeflex.css";
 import { GlobalStyles } from "./styles/globalStyles";
 import { addLocale, locale } from "primereact/api";
+import { GridProvider } from "./pages/gridReactPrime/contexts/gridContext";
 
 addLocale("pt", localept);
 locale("pt");
@@ -19,8 +20,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GlobalStyles />
-    <Router />
+    <GridProvider>
+      <GlobalStyles />
+      <Router />
+    </GridProvider>
   </React.StrictMode>
 );
 
