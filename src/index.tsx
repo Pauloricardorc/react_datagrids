@@ -1,17 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Router } from './router';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Router } from "./router";
+import reportWebVitals from "./reportWebVitals";
+import localept from "./core/locale/pt.json";
 
+import "primereact/resources/themes/md-light-indigo/theme.css"; //theme
+import "primereact/resources/primereact.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
+import "/node_modules/primeflex/primeflex.css";
+import { GlobalStyles } from "./styles/globalStyles";
+import { addLocale, locale } from "primereact/api";
 
-import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
-import "primereact/resources/primereact.min.css";                  //core css
-import "primeicons/primeicons.css";                                //icons
-import { GlobalStyles } from './styles/globalStyles';
- 
+addLocale("pt", localept);
+locale("pt");
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>

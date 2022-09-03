@@ -1,5 +1,5 @@
 import { DataTable } from 'primereact/datatable'
-import Card from '@mui/material/card'
+import Card from '@mui/material/Card'
 import styled from 'styled-components'
 
 export const Image = styled.img`
@@ -13,8 +13,14 @@ export const PersonalizedGrid = styled(DataTable)`
   .p-datatable-wrapper {
     height: calc(100vh - 8rem)
   }
-`
+
+  `
 
 export const PersonalizedCard = styled(Card)`
   height: calc(100vh - 4rem);
+
+  .row-accessories {
+      background: #FF2934 !important;
+      color: #F6F6F9 !important;
+  }
 `
