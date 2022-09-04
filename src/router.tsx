@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GridPrime } from "../src/pages/gridReactPrime/gridList";
+import { GridPrime } from "./pages/gridReactPrime/tableList";
 import { GridMaterial } from "./pages/gridMaterialUi/tableList";
-import { Header } from "./components/header";
+import { Header } from "./shared/header";
 
 export function Router() {
   return (

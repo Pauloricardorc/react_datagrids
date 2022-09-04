@@ -1,8 +1,9 @@
 import { Chip } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Prohibit } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { api } from "../../../core/service/axios";
+import { priceFormatter } from "../../../core/utils/formatter";
 import { ComponentModal } from "./../components/modal";
 import { Container } from "./styles";
 
@@ -21,8 +22,8 @@ interface IPropsGrid {
 }
 
 export function GridMaterial() {
+  const [page, setPage] = useState<number>(20);
   const [products, setProducts] = useState<IPropsGrid[]>([]);
-  const [modal, setModal] = useState<boolean>(false);
 
   async function getAllProducts() {
     const result = await api.get("products");
@@ -40,23 +41,39 @@ export function GridMaterial() {
         <Container>
           <DataGrid
             density={"compact"}
-            autoPageSize={true}
             sx={{ margin: "0.5rem", borderRadius: 3 }}
             checkboxSelection={true}
+            rowsPerPageOptions={[20, 50, 100]}
+            onPageSizeChange={(newPageSize) => setPage(newPageSize)}
+            pageSize={page}
+            pagination
             showColumnRightBorder={true}
             showCellRightBorder={true}
             headerHeight={90}
-            // getRowClassName={(params) => `row-${params.row.status}`}
+            components={{ Toolbar: GridToolbar }}
+            // getRowClassName={(params) => `row-${params.row.status}`} // demo ( demarcação da linha de produtos recentes)
             columns={[
+              // id
               { field: "id" },
+              // title
               {
                 field: "title",
                 headerName: "Nome",
                 width: 500,
               },
+              //descrição
               { field: "description", headerName: "Descrição", width: 400 },
-              { field: "price", headerName: "Preço" },
+              // preço
+              {
+                field: "price",
+                headerName: "Preço",
+                renderCell: (params) => {
+                  return priceFormatter.format(params.value);
+                },
+              },
+              // categoria
               { field: "category", width: 200 },
+              // status
               {
                 field: "status",
                 headerAlign: "center",
@@ -72,6 +89,7 @@ export function GridMaterial() {
                   );
                 },
               },
+              // image
               {
                 field: "image",
                 width: 100,

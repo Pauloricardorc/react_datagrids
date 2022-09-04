@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:server": "json-server ./src/core/service/products.json --port 3333 -w -d 500",
+    "start:server": "json-server ./src/core/service/products.json --port 3333 -w -d 1000",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

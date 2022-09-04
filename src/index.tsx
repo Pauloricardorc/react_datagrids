@@ -8,11 +8,11 @@ import "primereact/resources/themes/md-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 import "/node_modules/primeflex/primeflex.css";
-import { GlobalStyles } from "./styles/globalStyles";
 import { addLocale, locale } from "primereact/api";
 import { GridProvider } from "./pages/gridReactPrime/contexts/gridContext";
 import { ThemeProvider } from "@mui/material/styles";
-import lightTheme from "./styles/defaultTheme";
+import lightTheme from "./shared/styles/defaultTheme";
+import { GlobalStyles } from "./shared/styles/globalStyles";
 
 addLocale("pt", localept);
 locale("pt");

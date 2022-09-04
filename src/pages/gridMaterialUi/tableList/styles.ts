@@ -5,19 +5,18 @@ export const Container = styled.div`
 
   .row-recente {
     background: rgb(1, 129, 100, 0.2);
+    cursor: pointer;
 
     &:hover {
-      cursor: pointer;
-      background: rgb(1, 129, 100, 0.5);
+      background: rgb(1, 129, 100, 0.3) !important;
       transition: 0.1s ease-in-out background;
     }
   }
 
   .status-recente {
     .container-status {
-      /* background: rgb(50, 290, 100, 0.3); */
-      background: rgb(70, 220, 70, 1);
-      color: #F6F6F9;
+      border: 1px solid rgb(70, 220, 70, 1);
+      color: #22CC69;
       font-weight: 100;
     }
   }

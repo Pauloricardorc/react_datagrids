@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Modal, Typography } from "@mui/material";
+import { Button, Modal, Typography } from "@mui/material";
 import { X } from "phosphor-react";
 import { useState } from "react";
 import { Container, ImageModal } from "./styles";
