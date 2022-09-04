@@ -2,6 +2,9 @@ import { AppBar, Button } from '@mui/material'
 import styled from 'styled-components'
 
 export const PersonalizedHeader = styled(AppBar)`
+  display: flex;
+  justify-content: center;
+  height: 4rem;
   background: '#0181FE';
 
   a {

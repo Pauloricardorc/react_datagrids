@@ -10,7 +10,7 @@ import { Header } from "./components/header";
 export function GridPrime() {
   const { products, rowClass } = useContext(GridContext);
   const [first2, setFirst2] = useState(0);
-  const [rows2, setRows2] = useState(21);
+  const [rows2, setRows2] = useState(19);
   const [, setCurrentPage] = useState<any>(1);
 
   //Formação de campo de preços
@@ -37,7 +37,7 @@ export function GridPrime() {
             textAlign: "center",
           }}
         >
-          {options.first} - {options.last} of {options.totalRecords}
+          {options.first} - {options.last} até {options.totalRecords}
         </span>
       );
     },

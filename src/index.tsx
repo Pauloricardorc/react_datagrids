@@ -11,6 +11,8 @@ import "/node_modules/primeflex/primeflex.css";
 import { GlobalStyles } from "./styles/globalStyles";
 import { addLocale, locale } from "primereact/api";
 import { GridProvider } from "./pages/gridReactPrime/contexts/gridContext";
+import { ThemeProvider } from "@mui/material/styles";
+import lightTheme from "./styles/defaultTheme";
 
 addLocale("pt", localept);
 locale("pt");
@@ -20,10 +22,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GridProvider>
-      <GlobalStyles />
-      <Router />
-    </GridProvider>
+    <ThemeProvider theme={lightTheme}>
+      <GridProvider>
+        <GlobalStyles />
+        <Router />
+      </GridProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

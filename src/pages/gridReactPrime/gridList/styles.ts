@@ -11,7 +11,7 @@ export const Image = styled.img`
 
 export const PersonalizedGrid = styled(DataTable)`
   .p-datatable-wrapper {
-    height: calc(100vh - 8rem)
+    height: calc(100vh - 13rem)
   }
 
   `
