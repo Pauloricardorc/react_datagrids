@@ -2,9 +2,9 @@ import { Chip } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Prohibit } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { api } from "../../../core/service/axios";
-import { priceFormatter } from "../../../core/utils/formatter";
-import { ComponentModal } from "./../components/modal";
+import { api } from "../../../../../core/service/axios";
+import { priceFormatter } from "../../../../../core/utils/formatter";
+import { ComponentModal } from "../components/modal";
 import { Container } from "./styles";
 
 interface IPropsGrid {

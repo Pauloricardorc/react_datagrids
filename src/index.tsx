@@ -9,7 +9,6 @@ import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 import "/node_modules/primeflex/primeflex.css";
 import { addLocale, locale } from "primereact/api";
-import { GridProvider } from "./pages/gridReactPrime/contexts/gridContext";
 import { ThemeProvider } from "@mui/material/styles";
 import lightTheme from "./shared/styles/defaultTheme";
 import { GlobalStyles } from "./shared/styles/globalStyles";
@@ -23,10 +22,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={lightTheme}>
-      <GridProvider>
-        <GlobalStyles />
-        <Router />
-      </GridProvider>
+      <GlobalStyles />
+      <Router />
     </ThemeProvider>
   </React.StrictMode>
 );
