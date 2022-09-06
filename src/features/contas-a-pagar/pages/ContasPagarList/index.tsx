@@ -351,7 +351,7 @@ export const ContasPagarListDT = () => {
           filters={filters1}
           filterDisplay="menu"
           header={header1}
-          footer={footer1}
+          footer={ActionExport(dt)}
           globalFilterFields={[
             "global",
             "id",
