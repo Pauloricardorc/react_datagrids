@@ -6,12 +6,15 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 import { InputText } from "primereact/inputtext";
 import { Tooltip } from "primereact/tooltip";
+import { Ripple } from "primereact/ripple";
 
 import { useEffect, useRef, useState } from "react";
 
 import { Dropdown } from "primereact/dropdown";
 import { api } from "../../../../core/service/axios";
 import React from "react";
+import { ActionExport } from "./components/footer/index";
+import { classNames } from "primereact/utils";
 
 interface IPropsGrid {
   id: number;
@@ -37,6 +40,12 @@ export const ContasPagarListDT = () => {
   const [filters1, setFilters1] = useState<any>(null);
   const [expandedRows, setExpandedRows] = useState([]);
   const [rowsGroup, setRowsGroup] = useState<any>("");
+  const [currentPage, setCurrentPage] = useState<any>(1);
+  const [pageInputTooltip, setPageInputTooltip] = useState(
+    "Pressione 'Enter' para ir até a página."
+  );
+  const [first1, setFirst1] = useState(0);
+  const [rows1, setRows1] = useState(10);
 
   const dt = useRef(null);
 
@@ -169,100 +178,13 @@ export const ContasPagarListDT = () => {
   const renderFooter1 = () => {
     return (
       <>
-        <div className="flex align-items-center export-buttons">
-          <Button
-            type="button"
-            icon="pi pi-file"
-            className="mr-2"
-            data-pr-tooltip="CSV"
-          />
-          <Button
-            type="button"
-            icon="pi pi-file-excel"
-            className="p-button-success mr-2"
-            data-pr-tooltip="XLS"
-          />
-          <Button
-            type="button"
-            icon="pi pi-file-pdf"
-            className="p-button-warning mr-2"
-            data-pr-tooltip="PDF"
-          />
-          <Button
-            type="button"
-            icon="pi pi-filter"
-            className="p-button-info ml-auto"
-            data-pr-tooltip="Selection Only"
-          />
-        </div>
+        <ActionExport />
       </>
     );
   };
 
   const header1 = renderHeader1();
   const footer1 = renderFooter1();
-
-  //   const exportCSV = (selectionOnly: any) => {
-  //     dt.current.exportCSV({ selectionOnly });
-  //   };
-
-  //   const exportPdf = () => {
-  //     import("jspdf").then((jsPDF) => {
-  //       import("jspdf-autotable").then(() => {
-  //         const doc = new jsPDF.default(0, 0);
-  //         doc.autoTable(exportColumns, products);
-  //         doc.save("products.pdf");
-  //       });
-  //     });
-  //   };
-
-  //   const exportExcel = () => {
-  //     import("xlsx").then((xlsx) => {
-  //       const worksheet = xlsx.utils.json_to_sheet(products);
-  //       const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
-  //       const excelBuffer = xlsx.write(workbook, {
-  //         bookType: "xlsx",
-  //         type: "array",
-  //       });
-  //       saveAsExcelFile(excelBuffer, "products");
-  //     });
-  //   };
-
-  //   const saveAsExcelFile = (buffer: any, fileName: any) => {
-  //     import("file-saver").then((module) => {
-  //       if (module && module.default) {
-  //         let EXCEL_TYPE =
-  //           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-  //         let EXCEL_EXTENSION = ".xlsx";
-  //         const data = new Blob([buffer], {
-  //           type: EXCEL_TYPE,
-  //         });
-
-  //         module.default.saveAs(
-  //           data,
-  //           fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-  //         );
-  //       }
-  //     });
-  //   };
-
-  //   const onRowGroupExpand = (event:any) => {
-  //     toast.current.show({
-  //       severity: "info",
-  //       summary: "Row Group Expanded",
-  //       detail: "Value: " + event.data.category,
-  //       life: 3000,
-  //     });
-  //   };
-
-  //   const onRowGroupCollapse = (event:any) => {
-  //     toast.current.show({
-  //       severity: "success",
-  //       summary: "Row Group Collapsed",
-  //       detail: "Value: " + event.data.category,
-  //       life: 3000,
-  //     });
-  //   };
 
   const calculateCustomerTotal = (category: string) => {
     let total = 0;
@@ -277,6 +199,124 @@ export const ContasPagarListDT = () => {
 
     return total;
   };
+
+  const template1 = {
+    layout:
+      "PrevPageLink PageLinks NextPageLink RowsPerPageDropdown CurrentPageReport",
+    PrevPageLink: (options: any) => {
+      return (
+        <button
+          type="button"
+          className={options.className}
+          onClick={options.onClick}
+          disabled={options.disabled}
+        >
+          <span className="p-3">Anterior</span>
+          <Ripple />
+        </button>
+      );
+    },
+    NextPageLink: (options: any) => {
+      return (
+        <button
+          type="button"
+          className={options.className}
+          onClick={options.onClick}
+          disabled={options.disabled}
+        >
+          <span className="p-3">Próximo</span>
+          <Ripple />
+        </button>
+      );
+    },
+    PageLinks: (options: any) => {
+      if (
+        (options.view.startPage === options.page &&
+          options.view.startPage !== 0) ||
+        (options.view.endPage === options.page &&
+          options.page + 1 !== options.totalPages)
+      ) {
+        const className = classNames(options.className, { "p-disabled": true });
+
+        return (
+          <span className={className} style={{ userSelect: "none" }}>
+            ...
+          </span>
+        );
+      }
+
+      return (
+        <button
+          type="button"
+          className={options.className}
+          onClick={options.onClick}
+        >
+          {options.page + 1}
+          <Ripple />
+        </button>
+      );
+    },
+    RowsPerPageDropdown: (options: any) => {
+      const dropdownOptions = [
+        { label: 10, value: 10 },
+        { label: 20, value: 20 },
+        { label: 50, value: 50 },
+        { label: "Todos", value: options.totalRecords },
+      ];
+
+      return (
+        <Dropdown
+          value={options.value}
+          options={dropdownOptions}
+          onChange={options.onChange}
+        />
+      );
+    },
+    CurrentPageReport: (options: any) => {
+      return (
+        <span
+          className="mx-3"
+          style={{ color: "var(--text-color)", userSelect: "none" }}
+        >
+          Ir para{" "}
+          <InputText
+            size={2}
+            className="ml-1"
+            value={currentPage}
+            tooltip={pageInputTooltip}
+            onKeyDown={(e) => onPageInputKeyDown(e, options)}
+            onChange={onPageInputChange}
+          />
+        </span>
+      );
+    },
+  };
+
+  const onPageInputKeyDown = (event: any, options: any) => {
+    if (event.key === "Enter") {
+      const page = parseInt(currentPage);
+      if (page < 1 || page > options.totalPages) {
+        setPageInputTooltip(
+          `Value must be between 1 and ${options.totalPages}.`
+        );
+      } else {
+        const first = currentPage ? options.rows * (page - 1) : 0;
+
+        setFirst1(first);
+        setPageInputTooltip("Press 'Enter' key to go to this page.");
+      }
+    }
+  };
+
+  const onPageInputChange = (event: any) => {
+    setCurrentPage(event.target.value);
+  };
+
+  const onCustomPage1 = (event: any) => {
+    setFirst1(event.first);
+    setRows1(event.rows);
+    setCurrentPage(event.page + 1);
+  }
 
   const headerTemplate = (data: any) => {
     return (
@@ -328,6 +368,11 @@ export const ContasPagarListDT = () => {
           groupRowsBy="category"
           // rowGroupFooterTemplate={headerCount}
           rowGroupHeaderTemplate={headerTemplate}
+          paginator
+          // paginatorTemplate={template1}
+          first={first1}
+          rows={rows1}
+          onPage={onCustomPage1}
         >
           <Column
             selectionMode="multiple"

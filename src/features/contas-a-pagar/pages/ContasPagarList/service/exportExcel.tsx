@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { api } from "../../../../../core/service/axios";
 
-export function ButtonExecel() {
+export function ButtonExcel() {
   const [products, setProducts] = useState([]);
 
   async function getProducts() {
