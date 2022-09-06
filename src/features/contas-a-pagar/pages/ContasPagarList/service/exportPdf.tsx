@@ -18,7 +18,7 @@ interface IPropsGrid {
   };
 }
 
-export function ButtonPdf() {
+export function ButtonExportPdf() {
   const [products, setProducts] = useState<IPropsGrid[]>([]);
 
   async function getProducts() {

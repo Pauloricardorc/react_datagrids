@@ -1,11 +1,15 @@
-import { ButtonExecel } from "../../service/exportExcel";
-import { ButtonPdf } from "../../service/exportPdf";
+import { ButtonExportCsv } from "../../service/exportCsv";
+import { ButtonExportExecel } from "../../service/exportExcel";
+import { ButtonFilterExportCsv } from "../../service/exportFilterCsv";
+import { ButtonExportPdf } from "../../service/exportPdf";
 
-export function ActionExport() {
+export function ActionExport(dt: any) {
   return (
     <div className="flex align-items-center export-buttons">
-      <ButtonExecel />
-      <ButtonPdf />
+      <ButtonExportExecel />
+      <ButtonExportPdf />
+      <ButtonExportCsv dt={dt} />
+      <ButtonFilterExportCsv dt={dt} />
     </div>
   );
 }
